@@ -1,9 +1,13 @@
+import Navbar from "./components/Navbar"
+import Hero from "./components/Hero"
+
 function App() {
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-      <h1 className="text-4xl text-indigo-400 font-bold">
-        Echo Chamber Detector
-      </h1>
+    <div className="bg-slate-900 min-h-screen">
+      
+      <Navbar />
+      <Hero />
+
     </div>
   )
 }
