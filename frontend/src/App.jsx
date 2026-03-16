@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import Features from "./components/Features"
+import Analyze from "./components/Analyze"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Navbar />
       <Hero />
       <Features />
+      <Analyze />
 
     </div>
   )
