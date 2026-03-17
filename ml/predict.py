@@ -1,31 +1,26 @@
+import os
 import joblib
 
-# load trained model
-model = joblib.load("model.pkl")
+# Get the directory of this file (ml/)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# load vectorizer
-vectorizer = joblib.load("vectorizer.pkl")
+# Load model and vectorizer from ml/ folder
+model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
+vectorizer = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
 
+def analyze_posts(posts):
+    # Example: transform posts and predict
+    X = vectorizer.transform(posts)
+    predictions = model.predict(X)
 
-def predict_ideology(posts):
+    results = []
+    for post, pred in zip(posts, predictions):
+        results.append({
+            "text": post,
+            "bias": pred  # or sentiment/topic depending on your model
+        })
 
-    vectors = vectorizer.transform(posts)
-
-    predictions = model.predict(vectors)
-
-    return predictions
-
-
-# test
-if __name__ == "__main__":
-
-    test_posts = [
-        "government should reduce taxes",
-        "healthcare must be universal",
-        "new policy announced by government"
-    ]
-
-    result = predict_ideology(test_posts)
-
-    for post, pred in zip(test_posts, result):
-        print(post, "→", pred)
+    return {
+        "analysis": results,
+        "echo_chamber_score": 72  # placeholder
+    }
