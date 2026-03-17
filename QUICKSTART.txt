@@ -1,0 +1,226 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║          Internet Echo Chamber Detector - Quick Start Guide               ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+✅ WHAT I'VE CREATED FOR YOU:
+
+1. ✨ Complete React Frontend
+   - Beautiful UI with gradient design
+   - Real-time post analysis
+   - Interactive visualization of political bias
+   - Echo chamber score display
+   - Responsive mobile design
+
+2. 🔧 Updated Backend (FastAPI)
+   - Better error handling
+   - Improved CORS configuration
+   - Health check endpoints
+   - Proper model loading validation
+
+3. 🤖 Optimized ML Pipeline
+   - Enhanced training scripts
+   - Better data vectorization
+   - Consistent model/vectorizer handling
+
+4. 📝 Setup Scripts (Windows)
+   - setup.bat - Install everything automatically
+   - start-backend.bat - Start backend server
+   - start-frontend.bat - Start frontend server
+
+═════════════════════════════════════════════════════════════════════════════
+
+🚀 HOW TO RUN:
+
+STEP 1: Initial Setup (Run Once)
+──────────────────────────────────
+1. Open PowerShell or Command Prompt
+2. Navigate to: C:\Users\rushali\Downloads\Internet Echo Chamber Detector\new-repo
+3. Run: setup.bat
+
+This will automatically:
+- Train ML models (generate model.pkl and vectorizer.pkl)
+- Install backend dependencies
+- Install frontend dependencies (npm install)
+
+STEP 2: Train ML Models
+─────────────────────────
+In the new-repo folder, run:
+  cd ml
+  python train_vectorizer.py
+  python train_model.py
+
+You should see:
+  ✅ vectorizer.pkl created
+  ✅ model.pkl created
+
+STEP 3: Start Backend Server
+──────────────────────────────
+In new-repo folder, open a terminal and run:
+  start-backend.bat
+
+OR manually:
+  cd backend
+  python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+Expected output:
+  Uvicorn running on http://0.0.0.0:8000
+  Press CTRL+C to quit
+
+STEP 4: Start Frontend Server
+──────────────────────────────
+In new-repo folder, open ANOTHER terminal and run:
+  start-frontend.bat
+
+OR manually:
+  cd frontend
+  npm run dev
+
+Expected output:
+  VITE v5.0.0 ready in X ms
+  ➜ Local: http://localhost:5173/
+
+STEP 5: Open the Website
+────────────────────────
+Open your browser and go to: http://localhost:5173
+
+═════════════════════════════════════════════════════════════════════════════
+
+📊 HOW TO USE:
+
+1. You'll see the Echo Chamber Detector interface
+2. Enter social media posts in the text area
+3. Click "+ Add Post" to add multiple posts
+   (Or press Ctrl+Enter as a shortcut)
+4. Click "📊 Analyze Posts" button
+5. View results:
+   - Left-leaning percentage (🔴)
+   - Neutral percentage (⚪)
+   - Right-leaning percentage (🔵)
+   - Echo Chamber Score (higher = more polarized)
+
+═════════════════════════════════════════════════════════════════════════════
+
+🔗 API ENDPOINTS:
+
+POST /analyze
+─────────────
+Analyzes posts for political bias
+
+Request:
+  curl -X POST "http://localhost:8000/analyze" \
+    -H "Content-Type: application/json" \
+    -d '{"posts": ["Climate change is critical"]}'
+
+Response:
+  {
+    "left": 100.0,
+    "right": 0.0,
+    "neutral": 0.0,
+    "echo_score": 100.0
+  }
+
+GET /health
+───────────
+  curl http://localhost:8000/health
+
+Returns server and model status
+
+═════════════════════════════════════════════════════════════════════════════
+
+📁 PROJECT STRUCTURE:
+
+new-repo/
+├── backend/
+│   ├── main.py              ← FastAPI server (UPDATED)
+│   └── requirements.txt      ← Python dependencies
+├── ml/
+│   ├── train_model.py        ← Train political bias classifier (UPDATED)
+│   ├── train_vectorizer.py   ← Train TF-IDF vectorizer (UPDATED)
+│   ├── predict.py            ← Prediction utility
+│   ├── model.pkl             ← Generated model (after training)
+│   ├── vectorizer.pkl        ← Generated vectorizer (after training)
+│   └── dataset/
+│       └── political_data.csv ← Your training data
+├── frontend/                 ← NEW React app
+│   ├── src/
+│   │   ├── App.jsx           ← Main React component
+│   │   ├── App.css           ← Styling
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+├── README.md                 ← Full documentation
+├── setup.bat                 ← One-click setup
+├── start-backend.bat         ← Start backend server
+└── start-frontend.bat        ← Start frontend server
+
+═════════════════════════════════════════════════════════════════════════════
+
+🔧 TROUBLESHOOTING:
+
+Problem: "Model not found" error
+─────────────────────────────────
+Solution:
+  1. Make sure you ran: python ml/train_model.py
+  2. Check that model.pkl and vectorizer.pkl exist in ml/ folder
+  3. Restart the backend server after training
+
+Problem: "Cannot connect to localhost:5173"
+──────────────────────────────────────────────
+Solution:
+  1. Make sure frontend is running: check npm run dev output
+  2. Port 5173 might be in use - close other apps using it
+  3. Try a different terminal/shell
+
+Problem: npm install fails
+──────────────────────────
+Solution:
+  1. Make sure Node.js is installed: node --version
+  2. If not: Download from https://nodejs.org/
+  3. Restart terminal after installing Node.js
+  4. Try again: npm install in frontend folder
+
+Problem: CORS error in browser console
+──────────────────────────────────────
+Solution:
+  1. Backend CORS is already configured
+  2. Make sure backend is running on http://localhost:8000
+  3. Check browser console for exact error
+  4. Backend now supports both port 5173 and 3000
+
+═════════════════════════════════════════════════════════════════════════════
+
+💡 NEXT STEPS:
+
+1. Customize Training Data
+   - Edit posts and labels in ml/train_model.py
+   - Or load data from ml/dataset/political_data.csv
+   - Retrain models for better accuracy
+
+2. Enhance the Frontend
+   - Add more visualization options
+   - Store analysis history
+   - Export results as PDF/CSV
+
+3. Improve the Backend
+   - Add database integration
+   - Implement caching
+   - Add authentication
+
+═════════════════════════════════════════════════════════════════════════════
+
+✨ YOUR WEBSITE IS NOW COMPLETE AND READY TO USE!
+
+Key improvements made:
+✅ Created full React frontend
+✅ Updated backend with error handling
+✅ Improved ML training scripts
+✅ Created setup automation scripts
+✅ Added comprehensive documentation
+✅ Configured CORS properly
+✅ Added health check endpoints
+
+All files are configured and ready to run together!
+
+═════════════════════════════════════════════════════════════════════════════

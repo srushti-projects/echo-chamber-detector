@@ -1,12 +1,11 @@
 import joblib
 import os
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Get the directory of this file (ml/)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Example training data (replace with your dataset from political_data.csv)
+# Example training data (replace with your dataset)
 posts = [
     "Government policies are not beneficial.",
     "Climate change is necessary.",
@@ -19,22 +18,13 @@ posts = [
     "The free market solves problems best.",
     "Healthcare should be a human right."
 ]
-labels = ["right", "neutral", "left", "right", "right", "left", "right", "left", "right", "left"]
 
-# Train vectorizer (must match the one used earlier)
+# Train vectorizer
 vectorizer = TfidfVectorizer(max_features=100, stop_words='english')
 X = vectorizer.fit_transform(posts)
 
-# Train model
-model = LogisticRegression(random_state=42)
-model.fit(X, labels)
-
-# Save model and vectorizer
-model_path = os.path.join(BASE_DIR, "model.pkl")
+# Save vectorizer
 vectorizer_path = os.path.join(BASE_DIR, "vectorizer.pkl")
-
-joblib.dump(model, model_path)
 joblib.dump(vectorizer, vectorizer_path)
 
-print(f"✅ model.pkl created at {model_path}")
 print(f"✅ vectorizer.pkl created at {vectorizer_path}")
